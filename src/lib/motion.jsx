@@ -39,7 +39,7 @@ export function useInView({
         ? { threshold: 0, rootMargin: '0px 0px -25% 0px' }
         : { threshold, rootMargin }
     )
-    io.observe(el)
+    io.observe(target)
     return () => io.disconnect()
   }, [threshold, rootMargin, once, observeParent])
   return [ref, inView]

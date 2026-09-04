@@ -32,7 +32,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* `clip`, not `hidden`: overflow-x:hidden turns <body> into a scroll
+     container, which silently disables position:sticky for the whole page. */
+  overflow-x: clip;
 }
 
 :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) { margin: 0; }
