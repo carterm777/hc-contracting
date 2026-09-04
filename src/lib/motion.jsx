@@ -22,17 +22,18 @@ export function useInView({
     const el = ref.current
     if (!el) return
     if (prefersReducedMotion()) { setInView(true); return }
-    // Elements taller than the viewport can never satisfy a % threshold, so
-    // trigger those off a fixed band near their top edge instead.
     /* Chrome counts the target's OWN clip-path when computing the intersection
        ratio, so an element starting at `clip-path: inset(0 0 100% 0)` has a
-       ratio of 0 and can never satisfy a 0.18 threshold. Watch an unclipped
-       ancestor for those techniques instead. */
+       ratio of 0 and can never satisfy a 0.18 threshold — the entrance never
+       fires and the content stays invisible for the whole session. Verified
+       empirically. For those techniques, watch an unclipped ancestor instead. */
     const target = observeParent && el.parentElement ? el.parentElement : el
+    // Elements taller than the viewport can never satisfy a % threshold, so
+    // trigger those off a fixed band near their top edge instead.
     const tall = target.offsetHeight > window.innerHeight * 0.9
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) { setInView(true); if (once) io.unobserve(target) }
+        if (e.isIntersecting) { setInView(true); if (once) { io.unobserve(target); stopNet() } }
         else if (!once) setInView(false)
       },
       tall
@@ -40,7 +41,40 @@ export function useInView({
         : { threshold, rootMargin }
     )
     io.observe(target)
-    return () => io.disconnect()
+
+    /* Safety net. A fast programmatic scroll — the screenshot harness, a jump
+       to an anchor, a flung touch scroll — can leave an IntersectionObserver
+       notification undelivered, and the element then stays at opacity 0 for
+       the rest of the session. Verified empirically: roughly one section in
+       ten was stranded per full-page scroll pass. The observer stays primary;
+       this only re-checks the SAME trigger point (top edge 12% into the
+       viewport, matching the rootMargin above) and anything already scrolled
+       past. It never fires at first pixel. */
+    let raf = null
+    let netOn = true
+    const stopNet = () => {
+      if (!netOn) return
+      netOn = false
+      window.removeEventListener('scroll', onNet)
+      window.removeEventListener('resize', onNet)
+      if (raf) cancelAnimationFrame(raf)
+    }
+    function check() {
+      raf = null
+      if (!netOn) return
+      const r = target.getBoundingClientRect()
+      const vh = window.innerHeight || 0
+      const line = tall ? vh * 0.75 : vh * 0.88
+      if (r.bottom <= 0 || (r.top < line && r.bottom > 0)) {
+        setInView(true)
+        if (once) { io.unobserve(target); stopNet() }
+      }
+    }
+    function onNet() { if (raf === null) raf = requestAnimationFrame(check) }
+    window.addEventListener('scroll', onNet, { passive: true })
+    window.addEventListener('resize', onNet, { passive: true })
+
+    return () => { io.disconnect(); stopNet() }
   }, [threshold, rootMargin, once, observeParent])
   return [ref, inView]
 }
