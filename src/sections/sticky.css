@@ -1,0 +1,40 @@
+/* ── Mobile sticky call bar ─────────────────────────────────────────────────
+   Layout: Sticky or Floating CTA Bar, call-only.
+   Animation: Sticky Bar Slide-In on Scroll Threshold — the whole bar is the
+   unit, nothing staggers inside it. Hidden entirely above 900px and above the
+   fold, so the hero screenshot stays clean.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.stk {
+  position: fixed;
+  z-index: var(--z-sticky);
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: var(--s-3) var(--gutter) calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+  background: var(--c-ink);
+  border-block-start: var(--rule-3) solid var(--c-blue-bright);
+  transform: translate3d(0, 110%, 0);
+  transition: transform 420ms var(--ease-out-quart);
+  pointer-events: none;
+}
+.stk[data-shown='true'] { transform: none; pointer-events: auto; }
+
+.stk__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  width: 100%;
+  padding: var(--s-4);
+  background: var(--c-blue);
+  color: var(--c-white);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  transition: background-color var(--d-fast) linear;
+}
+.stk__btn:hover, .stk__btn:focus-visible { background: var(--c-blue-bright); color: var(--c-ink); }
+.stk__btn .lucide { width: var(--icon-md); height: var(--icon-md); }
+
+@media (min-width: 900px) { .stk { display: none; } }

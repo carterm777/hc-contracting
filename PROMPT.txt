@@ -1,0 +1,131 @@
+You are building a one-page cold-outreach demo site in React. This needs to look like a genuinely premium, $10,000+ custom local-business build — luxurious, high-fidelity, restrained, not a template, not AI-generated. This is a redesign concept for a business that already has a live site at http://hecreates.ca/ — services, facts, and positioning were extracted from that page, but ALL copy below is freshly written, not reworded from the source.
+
+WORKFLOW — FOLLOW EXACTLY
+1. This project's working directory already contains a copy of the section-style-repo-animation+ folder. List it first to confirm what's actually there, then read front-end-design.md from its root exactly: build a token system first (but use the fonts/colors given below as fixed — don't re-derive a palette), avoid its named generic-AI-design defaults, watch CSS selector specificity so section-level and element-level classes don't cancel each other out, and take screenshots to self-critique against this brief before opening the preview.
+2. For EVERY section on this page, consult section-style-repo.md and its references/ subfolder (also inside that same folder) and run its full three-phase process (layout, visual style, animation) from its own reference files — don't skip straight to code. Use its selection log to keep real variety across sections on this page. When multiple options fit equally well, prefer whichever reads more premium, restrained, and editorial-caliber for this trade and city. Run both finishing passes (elevation sweep, coherence sweep) after every section is built once. If a referenced file isn't at the exact path expected, list the folder's contents and use whichever files you actually find — don't silently skip the design system.
+3. Build the full site locally.
+4. Before opening the preview, take screenshots of the desktop and primary mobile breakpoints and self-critique the whole page against this brief per front-end-design.md's critique guidance — fix anything that reads generic, templated, or unfinished before I see it.
+5. Open a live preview window automatically once built. Wait for review.
+6. I will request changes/fixes — make them in this same session.
+7. Do NOT deploy until I explicitly say "push and deploy."
+8. On "push and deploy": call deploy_to_vercel with target: production, name: hc-contracting (fallback to hc-contracting-edmonton only if the exact name is unavailable). Before deploying, initialize git in this project directory if it isn't already a git repo, stage and commit all files, add the remote https://github.com/carterm777/hc-contracting (this repo already exists on GitHub, created empty), and push to its main branch.
+9. Add <meta name="robots" content="noindex, nofollow"> to every page.
+
+HEADING STRUCTURE (mandatory): one H1, one H2 per section, H3 for sub-items, never skip a level, never fake a heading with a styled div. Title Case all headers.
+
+HERO LAYOUT (mandatory — this overrides the design system's usual full delegation for this one section): keep the hero content container wide enough that the H1 wraps across 2-3 lines, never near-single-word lines from excess side padding. Align the eyebrow/kicker line above the H1 with the top edge of the photo-diagnosis widget on the same vertical line. Directly beneath the H1/subheadline, place the 4 value-badges/objection-overcomers strip (short label + real Lucide icon each). Above the fold, on both desktop and the primary mobile breakpoint, with zero scrolling required: H1 + subheadline, the 4 value-badges, the primary click-to-call button, the secondary CTA button (to Services), and the photo-diagnosis widget must all be visible. (The Google-reviews strip is not part of the hero — see the Google Reviews Section below.)
+
+GOOGLE REVIEWS SECTION (mandatory, fixed position — also overrides full delegation): a standalone section renders directly below the hero, before the Trust Badges Banner, never inside the hero and never moved further down the page. It carries the fabricated, hyper-realistic placeholder Google-reviews strip (4-5 reviews, 5-star, first-name-plus-last-initial attribution, styled to read unmistakably as a Google-reviews block with a prominent aggregate-rating callout). Give this section real design ambition — a proper grid or carousel layout, generous spacing — since it no longer has to compete for space inside the hero.
+
+TRUST BADGES BANNER (mandatory, fixed position — also overrides full delegation): a full-width banner renders directly below the Google Reviews Section, never inside the hero and never moved further down the page. It carries real third-party trust marks — licenses, certifications, BBB accreditation/rating, trade-association membership, awards — pulled from the business's real facts, if provided or available; never a fabricated specific credential. Pad out to exactly four badges with generic, unquantified trust language ("Licensed & Insured," "Locally Owned & Operated," "Years of Experience," "Satisfaction Guaranteed") where fewer than four real credentials exist. Each badge uses one real, meaning-matched Lucide icon (shield for licensing/certification, badge/check for BBB/association accreditation, an award/star icon for a named award, or the nearest real equivalent) — never a generic dot/bullet standing in for an icon, never two badges sharing an icon. Match icon size, stroke weight, and alignment across all four so the row reads as one professionally designed system, not four mismatched glyphs.
+
+IMAGES: check this project folder for a folder named "images." If it exists, use only those images. If it doesn't exist, ask me whether to generate images via the Higgsfield MCP before building any image content — don't assume either way.
+
+BUSINESS INFO
+Business Name: HC Contracting (the source site's fuller legal-sounding name, "He Creates Contracting," may be referenced once in footer copy, but the page's primary display name throughout is HC Contracting, matching the source site's page title)
+Location: Edmonton, Alberta
+Industry: Residential & commercial electrical services
+Source: existing site — http://hecreates.ca/
+Extracted/decided facts summary: Edmonton-based electrical and contracting business, in operation since 2010. Source site's own tagline is "WE FIX STUFF...IT'S WHAT WE DO," positioning the business as hands-on and direct rather than corporate. The source site names residential, commercial, outdoor lighting, and full-service electrical work, plus a distinct "Mobile Services" offering, suggesting on-site/on-call work is a real part of how the business operates. No specific licence numbers, awards, emergency-service claim, or financing offer appears on the source site, so none of those are used below.
+
+Meta description (150-160 chars, local, not a copy of the hero): Edmonton electricians since 2010. Residential, commercial, and outdoor lighting work, plus on-site mobile service calls done right the first time.
+
+BRAND IDENTITY
+Fonts: Display — Six Caps (Regular, all-caps set with wide letter-spacing) / Body — Source Sans Pro (Regular) (source: extracted (single-page live computed-style sweep only — cross-page recheck and screenshot sanity check were not performed; see notes) — both names were returned directly by the sweep's font-family list; Six Caps is the bold condensed display face already carrying the source site's "WE FIX STUFF" tagline, Source Sans Pro carries body text)
+Colors: Primary #156EA1 / Secondary #60BBEF / Accent #3B93C0 / Dark #000000 / Light #FFFFFF (source: extracted (single-page live computed-style sweep only — cross-page recheck and screenshot sanity check were not performed; see notes) — Primary and Secondary (the two blues) and Dark and Light were all returned directly by the top-colors sweep of body elements; Accent is a derived mid-tone between the two extracted blues, used for hover/secondary states, since the sweep returned only four distinct raw values)
+Voice: Blunt and confident, with a working-tradesperson directness — "we fix stuff" energy rather than polished corporate language, comfortable naming a problem plainly and getting straight to how it gets solved.
+
+CONTACT INFO (placeholder — no real contact details were found in the available source content)
+Phone: (780) 555-0163 (placeholder)
+Email: contact@hccontracting.com (placeholder)
+Address: Edmonton, AB, Canada (placeholder — real street address not confirmed)
+
+HEADER STRUCTURE
+Subheader: (780) 555-0163 (placeholder) / contact@hccontracting.com (placeholder) / Edmonton, AB, Canada (placeholder)
+Nav (centered): Home · About · Services (dropdown: Residential Wiring, Commercial Electrical, Outdoor & Landscape Lighting, Mobile Electrical Service Calls, Panel Upgrades & Replacements, Breaker & Fuse Repairs, Lighting Installation, Electrical Troubleshooting, Renovation Wiring, Outlet & Switch Repair, Ceiling Fan Installation, Electrical Safety Inspections) · Service Areas (dropdown: Edmonton, Sherwood Park, St. Albert, Spruce Grove, Stony Plain, Leduc, Fort Saskatchewan, Beaumont, Devon, Morinville) · FAQ · Blog · Contact
+Anchor map: Services → Core Services section / Service Areas → Coverage section / About → Story / FAQ → FAQ / Contact → Final CTA / Blog → Footer
+Right: click-to-call button + phone icon
+Mobile: no hamburger — nav reduces to click-to-call only while scrolling
+
+FOOTER STRUCTURE (4 columns):
+Column 1: Wordmark logo + mission statement + social icons
+Column 2: "Our Services" header + Residential Wiring, Commercial Electrical, Outdoor & Landscape Lighting, Mobile Electrical Service Calls, Panel Upgrades
+Column 3: "Quick Links" header + Home, About, Services, Service Areas, FAQ, Contact
+Column 4: HC Contracting (He Creates Contracting), Edmonton, AB, Canada (placeholder), (780) 555-0163 (placeholder)
+Copyright line: © [current year] HC Contracting. All rights reserved.
+
+CONVERSION ELEMENTS — build all of these, none functional/backend-connected:
+- Photo-diagnosis uploader in hero (image + description + name/phone, client-side success state, no backend) — this is the centerpiece and this page's signature element; give it the most design ambition on the page.
+- 4 value-badges/objection-overcomers directly in the hero, beneath the headline/subheadline, each properly and professionally iconified with a real, distinct, meaning-matched Lucide icon:
+  Satisfaction Guarantee (HeartHandshake) · Licensed & Insured (ShieldCheck) · Free Estimates (ClipboardList) · Mobile Service Calls (Truck)
+- Same primary CTA repeated at natural points down the page — one ask, several spots.
+- Click-to-call everywhere (tel: links) + mobile sticky call-only bar.
+- Click-to-text (sms: link) in the final CTA and footer.
+- Fabricated, hyper-realistic placeholder Google-reviews strip in its own Google Reviews Section directly below the hero, never inside the hero (5 reviews, 5-star, first-name-plus-last-initial attribution, each with a distinct focus, styled to read as a recognizable Google-reviews block with a prominent aggregate-rating callout) — label as placeholder needing real GBP reviews before real launch.
+- Trust Badges Banner directly below the Google Reviews Section (no real credentials were found in the source content, so all four badges use generic, unquantified trust language), each badge properly and professionally iconified with a real, distinct, meaning-matched Lucide icon:
+  Licensed & Insured (BadgeCheck) · Locally Owned & Operated (MapPin) · Years of Experience (Award) · Satisfaction Guaranteed (ThumbsUp)
+- Reassurance microcopy beside every form ("No cost, no obligation, and we never share your information.").
+- Convincing non-backend success state on every form.
+No financing callout and no 24-hour/emergency messaging — neither was stated on the source site.
+
+Apply brand fonts/colors via CSS variables throughout, no hardcoded values.
+
+PAGE COPY
+
+[HERO]
+Headline: Trusted Electrical Contractors Serving Edmonton Since 2010
+Subheadline: Licensed electrical and contracting work for homes and businesses, handled by a crew that names the problem straight and gets it fixed, not talked around.
+Value badges: Satisfaction Guarantee (HeartHandshake) · Licensed & Insured (ShieldCheck) · Free Estimates (ClipboardList) · Mobile Service Calls (Truck)
+
+[GOOGLE REVIEWS SECTION]
+Aggregate line: 4.9 out of 5 stars, based on real Google reviews
+1. Aaron K. — ★★★★★ — "Had an outdoor lighting system installed for a backyard reno. Clean work and it's held up through two winters so far."
+2. Nicole F. — ★★★★★ — "Called about a commercial panel issue at our shop. Someone showed up same week and had it sorted fast."
+3. Colin S. — ★★★★★ — "Straight talk from the first phone call, no runaround about what the job would really cost."
+4. Tanya R. — ★★★★★ — "Mobile service call for a rental property. They coordinated directly with our tenant, which saved us a full day off work."
+5. Marcus L. — ★★★★★ — "Been using them for years now. Every job gets the same no-nonsense attention, big or small."
+
+[TRUST BADGES BANNER]
+Licensed & Insured (BadgeCheck) · Locally Owned & Operated (MapPin) · Years of Experience (Award) · Satisfaction Guaranteed (ThumbsUp)
+
+[WHY US]
+1. Fixed Fast, Explained Plainly (Wrench) — The problem gets named clearly and the fix gets handled without a runaround, every time.
+2. Real Mobile Service (Truck) — Service calls come to your home, rental property, or job site, so the work fits your schedule instead of the other way around.
+3. Over a Decade in Edmonton (Award) — This isn't a business that started last year. The crew has been doing residential and commercial electrical work in this city since 2010.
+4. Licensed and Accountable (ShieldCheck) — Every job is covered from the first call to the final test, with a crew that stands behind its own work.
+
+[SERVICES]
+1. Residential Wiring — Full home wiring, panel work, and troubleshooting for houses across Edmonton and the surrounding area.
+2. Commercial Electrical — Wiring, maintenance, and repairs for shops, offices, and commercial spaces that need work done without disrupting business.
+3. Outdoor & Landscape Lighting — Exterior lighting built to handle Alberta winters, from a single fixture to a full backyard or storefront lighting plan.
+4. Mobile Electrical Service Calls — On-site service for homes, rental properties, and job sites, coordinated directly with whoever's on location.
+5. Panel Upgrades — Older panels and fuse boxes replaced with equipment sized for how a property draws power today.
+6. Renovation Wiring — Electrical work for kitchen, basement, and full home renovations, coordinated around the rest of the trades on site.
+
+[SERVICE AREA / COVERAGE]
+Based in Edmonton, this crew regularly works across the metro area, including Sherwood Park, St. Albert, Spruce Grove, Stony Plain, Leduc, Fort Saskatchewan, Beaumont, Devon, and Morinville. Mobile service calls mean the crew comes to a home, rental property, or job site directly, not the other way around.
+
+[OUR STORY]
+This business has been doing electrical and contracting work in Edmonton since 2010, built on a simple approach: name the problem straight, fix it properly, and skip the runaround that usually comes with hiring a contractor. That's the idea behind the "we fix stuff" mindset the crew still works by today.
+
+A big part of what sets the day-to-day apart is the mobile service side of the business. Instead of every job requiring a customer to be home and available, the crew coordinates directly with tenants, property managers, and site contacts — a real fit for a city where plenty of electrical work happens on rental properties and active job sites.
+
+More than a decade in, the work has grown from single-room jobs to full commercial builds, but the standard hasn't moved: a straight answer about what's wrong, a fair number for fixing it, and a job site left in better shape than it was found.
+
+[FINAL CTA]
+Headline: Ready for a Crew That Just Fixes It?
+Supporting sentence: Call now for a free estimate on residential, commercial, or mobile electrical service in Edmonton and the surrounding area.
+Primary action: Call (780) 555-0163 (tel: link) — plus a click-to-text (sms:) option for anyone who'd rather not call.
+
+[FAQ]
+1. Q: Do you come to rental properties for service calls? A: Yes. Mobile service calls are a regular part of the business, and we coordinate directly with tenants or property managers so an owner doesn't have to be on-site.
+2. Q: How long have you been working in Edmonton? A: Since 2010. Residential and commercial electrical work across the city has been the core of the business the whole time.
+3. Q: Do you handle both residential and commercial jobs? A: Yes, along with outdoor and landscape lighting and mobile service calls. Most weeks include a mix of all four.
+4. Q: Are you licensed and insured? A: Yes. Every job is handled by licensed, insured electricians, so you're covered from the first call to the final test.
+5. Q: Do you offer free estimates? A: Yes. We'll look at the job and give you a straightforward number before any work begins.
+6. Q: What kind of outdoor lighting work do you do? A: Everything from a single exterior fixture to a full landscape or storefront lighting plan, built to hold up through Alberta winters.
+
+[FOOTER COPY]
+Mission statement: We're a licensed electrical and contracting crew that's served Edmonton since 2010, from single-family homes to commercial builds. Mobile service calls mean we come to you, whether that's a house, a rental property, or a job site.
+Footer services list: Residential Wiring, Commercial Electrical, Outdoor & Landscape Lighting, Mobile Electrical Service Calls, Panel Upgrades
+Footer quick links: Home, About, Services, Service Areas, FAQ, Contact

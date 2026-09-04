@@ -1,0 +1,100 @@
+/* ── Trust Badges Banner ────────────────────────────────────────────────────
+   Layout: Certification Badge Wall, flattened to a single full-width row.
+   Visual: Badge or Seal Bold Treatment on a deep brand-blue band.
+   Animation: Badge Fade and Scale-In on Scroll — title first, then the four
+   badges stagger left to right at 110ms.
+
+   All four icons share one box (--icon-xl), one stroke weight and one optical
+   baseline, so the row reads as one system rather than four glyphs.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.trb {
+  background: var(--c-blue-deep);
+  color: var(--fg-on-blue);
+  border-block-start: var(--rule-3) solid var(--c-blue-abyss);
+  border-block-end: var(--rule-5) solid var(--c-blue-bright);
+}
+
+.trb__title {
+  font-size: var(--fs-d2);
+  color: var(--c-white);
+  text-align: center;
+  margin-block-end: var(--s-7);
+}
+.trb__title::after {
+  content: '';
+  display: block;
+  width: var(--s-9);
+  height: var(--rule-2);
+  margin: var(--s-4) auto 0;
+  background: var(--c-blue-bright);
+}
+
+.trb__row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-6);
+}
+
+.trb__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--s-3);
+  padding-inline: var(--s-4);
+  border-inline-start: var(--rule-1) solid rgb(255 255 255 / 0.22);
+}
+.trb__badge:first-child { border-inline-start: 0; }
+
+/* Badge or Seal Bold Treatment: a solid brand block per badge rather than an
+   outlined plate, so the four marks read as one system from across the room.
+   Same box, same stroke weight, same optical centre on all four. */
+.trb__icon {
+  display: grid;
+  place-items: center;
+  width: var(--s-9);
+  height: var(--s-9);
+  color: var(--c-blue-abyss);
+  background: var(--c-blue-bright);
+  transition: color var(--hover-dur) linear,
+              background-color var(--hover-dur) linear,
+              transform var(--hover-dur) var(--ease-out-cubic);
+}
+.trb__icon .lucide {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+  stroke-width: 2;
+}
+.trb__badge:hover .trb__icon {
+  color: var(--c-blue-deep);
+  background: var(--c-white);
+  transform: translateY(-3px);
+}
+
+.trb__label {
+  min-height: 2.5em;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--c-white);
+}
+.trb__note {
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--fg-on-blue-2);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+@media (max-width: 899px) {
+  .trb__row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6) var(--s-4); }
+  .trb__badge:nth-child(odd) { border-inline-start: 0; }
+  .trb__badge { padding-inline: var(--s-1); }
+  .trb__icon { width: var(--s-8); height: var(--s-8); }
+  .trb__icon .lucide { width: var(--icon-lg); height: var(--icon-lg); }
+  .trb__label { font-size: var(--fs-2xs); }
+  .trb__note { font-size: var(--fs-3xs); }
+}

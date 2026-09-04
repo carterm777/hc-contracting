@@ -1,0 +1,125 @@
+/* ── Why Us ─────────────────────────────────────────────────────────────────
+   Layout: Numbered Reasons List — four reasons on a real 01–04 sequence,
+   arranged 2×2 so the section stays a slab of black rather than a long ladder.
+   Visual: Oversized Number Typography — the numerals are set in the display
+   face at more than twice the heading size, which is the only place on the
+   page Six Caps is used purely as ornament.
+   Animation: Sequential Reveal on Scroll (title, then one group per reason) +
+   Underline Draw on each item's rule + Cursor-Reactive Glow across the slab.
+   This is the page's single cursor-glow surface.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.why {
+  background: var(--c-ink);
+  color: var(--fg-on-dark);
+  --glow-color: rgb(96 187 239 / 0.10);
+  --glow-size: 520px;
+}
+.why__inner { position: relative; z-index: var(--z-top); }
+
+.why__head { max-width: 58ch; margin-block-end: clamp(2.25rem, 4vw, 3.75rem); }
+.why__title { font-size: var(--fs-d1); color: var(--c-white); margin-block-end: var(--s-4); }
+.why__lede {
+  max-width: 52ch;
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+  color: var(--fg-on-dark-2);
+}
+
+.why__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 3vw, 3rem);
+}
+
+.why__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--s-5);
+  align-items: start;
+  padding-block-start: var(--s-5);
+  border-block-start: var(--rule-1) solid var(--c-ink-line);
+  transition: border-color var(--hover-dur) linear;
+}
+.why__item:hover { border-block-start-color: var(--c-blue-bright); }
+
+.why__n {
+  font-size: calc(var(--fs-num) * 1.15);
+  line-height: 0.72;
+  color: var(--c-blue);
+  letter-spacing: var(--tr-display);
+  transition: color var(--hover-dur) linear;
+}
+.why__item:hover .why__n { color: var(--c-blue-bright); }
+
+.why__icon {
+  display: grid;
+  place-items: center;
+  width: var(--s-9);
+  height: var(--s-9);
+  color: var(--c-blue-bright);
+  border: var(--rule-1) solid var(--c-ink-line);
+  transition: background-color var(--hover-dur) linear, color var(--hover-dur) linear,
+              border-color var(--hover-dur) linear;
+}
+.why__item:hover .why__icon {
+  background: var(--c-blue-bright);
+  border-color: var(--c-blue-bright);
+  color: var(--c-ink);
+}
+.why__icon .lucide { width: var(--icon-lg); height: var(--icon-lg); }
+
+.why__h3 { font-size: var(--fs-d3); color: var(--c-white); line-height: 1; }
+
+.why__rule {
+  display: block;
+  width: var(--s-8);
+  height: var(--rule-2);
+  margin-block: var(--s-3);
+  background: var(--c-blue);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 520ms var(--ease-out-quart) 260ms, background-color var(--hover-dur) linear;
+}
+.why__item[data-in='true'] .why__rule { transform: scaleX(1); }
+.why__item:hover .why__rule { background: var(--c-blue-bright); }
+
+.why__copy {
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--fg-on-dark-2);
+  max-width: 42ch;
+}
+
+.why__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-block-start: clamp(2.25rem, 3.6vw, 3.5rem);
+  padding-block-start: var(--s-6);
+  border-block-start: var(--rule-2) solid var(--c-ink-line);
+}
+.why__cta-copy {
+  font-family: var(--ff-display);
+  font-size: var(--fs-d3);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-display-wide);
+  line-height: 1;
+  color: var(--c-white);
+}
+.why__cta-btn .lucide { width: var(--icon-sm); height: var(--icon-sm); }
+
+@media (max-width: 899px) {
+  .why__list { grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
+  .why__item { gap: var(--s-4); }
+  .why__n { font-size: var(--fs-d1); }
+  .why__cta { flex-direction: column; align-items: stretch; text-align: center; }
+  .why__cta-btn { justify-content: center; }
+}
+
+@media (max-width: 479px) {
+  .why__item { grid-template-columns: auto minmax(0, 1fr); gap: var(--s-4); }
+  .why__icon { display: none; }
+}

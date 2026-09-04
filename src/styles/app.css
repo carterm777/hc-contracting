@@ -1,0 +1,229 @@
+/* ── Page-level composition primitives ──────────────────────────────────────
+   Shared across sections: the type roles, the button family, the section
+   header block, and the four site-specific motion techniques written for this
+   brand. Section-specific rules live beside their component, namespaced.
+   ───────────────────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  background: var(--bg);
+}
+
+::selection { background: var(--c-blue-bright); color: var(--c-ink); }
+
+/* Focus ring contrast is context-dependent. Ink is the page default because
+   most surfaces are white or brand blue; the dark bands flip to bright blue so
+   the ring never disappears into its own background. */
+.hdr, .why, .ftr, .stk, .svc__feature, .svc__tile { --focus-ring: var(--c-blue-bright); }
+
+/* Section modifiers. base.css owns .section padding; these are the same
+   single-class weight and only ever change the block rhythm. */
+.section--edge { padding-block: 0; }
+.section--band { padding-block: clamp(2.25rem, 3.4vw, 3.5rem); }
+
+/* ── Display type ───────────────────────────────────────────────────────── */
+.disp {
+  font-family: var(--ff-display);
+  font-weight: var(--fw-reg);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-display-wide);
+  line-height: var(--lh-display);
+}
+
+/* ── Eyebrow / kicker ───────────────────────────────────────────────────── */
+.eyebrow {
+  display: block;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-blue);
+  line-height: 1;
+}
+.eyebrow--on-dark { color: var(--c-blue-bright); }
+.eyebrow--on-blue { color: var(--fg-on-blue-2); }
+
+.lede {
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+  color: var(--fg-2);
+}
+
+/* ── Shared section header block ────────────────────────────────────────── */
+.sec-head { max-width: 46ch; }
+.sec-head__eyebrow { display: flex; align-items: center; gap: var(--s-3); margin-block-end: var(--s-5); }
+.sec-head__title { font-size: var(--fs-d1); margin-block-end: var(--s-5); }
+.sec-head--wide { max-width: 62ch; }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-6);
+  border-radius: var(--r-0);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color var(--d-mid) var(--ease-out-cubic),
+              background-color var(--d-mid) var(--ease-out-cubic),
+              border-color var(--d-mid) var(--ease-out-cubic),
+              box-shadow var(--d-mid) var(--ease-out-cubic),
+              transform var(--d-mid) var(--ease-out-cubic);
+}
+.btn > * { position: relative; z-index: var(--z-mid); }
+
+/* ── Motion technique 3 of 4: "Voltage Sweep". A block of the inverse colour
+      wipes across the button from the left on hover/focus and the label
+      inverts with it — Underline Sweep rebuilt as a colour block, because
+      this page's language is colour blocks, not underlines. ────────────── */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-bed);
+  background: var(--btn-sweep, transparent);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 340ms var(--ease-out-quart);
+}
+.btn:hover::before,
+.btn:focus-visible::before { clip-path: inset(0 0 0 0); }
+
+.btn--primary {
+  background: var(--c-blue);
+  color: var(--fg-on-blue);
+  --btn-sweep: var(--c-ink);
+  box-shadow: var(--e-1);
+}
+.btn--primary:hover, .btn--primary:focus-visible { color: var(--c-blue-bright); box-shadow: var(--e-2); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--fg);
+  border: var(--rule-2) solid var(--c-ink);
+  --btn-sweep: var(--c-ink);
+}
+.btn--ghost:hover, .btn--ghost:focus-visible { color: var(--c-white); }
+
+.btn--on-dark {
+  background: transparent;
+  color: var(--fg-on-dark);
+  border: var(--rule-2) solid var(--c-ink-line);
+  --btn-sweep: var(--c-blue-bright);
+}
+.btn--on-dark:hover, .btn--on-dark:focus-visible { color: var(--c-ink); border-color: var(--c-blue-bright); }
+
+.btn--on-blue {
+  background: var(--c-white);
+  color: var(--c-blue-deep);
+  --btn-sweep: var(--c-ink);
+}
+.btn--on-blue:hover, .btn--on-blue:focus-visible { color: var(--c-white); }
+
+.btn--outline-blue {
+  background: transparent;
+  color: var(--fg-on-blue);
+  border: var(--rule-2) solid rgb(255 255 255 / 0.4);
+  --btn-sweep: var(--c-blue-abyss);
+}
+.btn--outline-blue:hover, .btn--outline-blue:focus-visible { border-color: var(--c-blue-abyss); }
+
+.btn--lg { padding: var(--s-5) var(--s-7); font-size: var(--fs-md); }
+.btn--block { display: flex; width: 100%; }
+
+/* Text link with a drawn underline — Underline Sweep, restrained register. */
+.tlink {
+  position: relative;
+  font-weight: var(--fw-semi);
+  color: inherit;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% var(--rule-1);
+  background-position: 0 100%;
+  transition: background-size 260ms var(--ease-out-quart), color var(--d-fast) linear;
+}
+.tlink:hover, .tlink:focus-visible { background-size: 100% var(--rule-1); }
+
+/* ── Motion technique 1 of 4: line-by-line Clip Reveal on the condensed
+      headline stacks. The kit's clip reveal masks a whole block; this masks
+      each line horizontally and staggers them, which is the only way an
+      eight-word Six Caps stack reads as being uncovered rather than wiped. */
+.hcx-lines { display: block; }
+.hcx-line { display: block; }
+.hcx-line + .hcx-line { margin-block-start: var(--line-gap); }
+.hcx-line__in {
+  display: block;
+  line-height: var(--lh-display);
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--d-clip) var(--ease-out-quart) var(--reveal-delay);
+  will-change: clip-path;
+}
+.hcx-lines[data-in='true'] .hcx-line__in { clip-path: inset(0 0 0 0); }
+
+/* ── Motion technique 2 of 4: "Conduit Rule". Sequential Line Draw with a
+      square terminal that lands after the line arrives — a junction box at
+      the end of a conduit run, which is what this trade actually looks at. */
+.hcx-rule { display: flex; align-items: center; color: var(--c-blue); }
+.hcx-rule__line {
+  height: var(--rule-2);
+  width: var(--rule-line-w, 3.5rem);
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 620ms var(--ease-out-quart) var(--reveal-delay);
+}
+.hcx-rule__cap {
+  width: var(--s-2);
+  height: var(--s-2);
+  background: currentColor;
+  transform: scale(0);
+  transition: transform 300ms var(--ease-out-quart) calc(var(--reveal-delay) + 520ms);
+}
+.hcx-rule[data-in='true'] .hcx-rule__line { transform: scaleX(1); }
+.hcx-rule[data-in='true'] .hcx-rule__cap { transform: scale(1); }
+.hcx-rule--bright { color: var(--c-blue-bright); }
+.hcx-rule--light { color: var(--c-white); }
+.hcx-rule--ink { color: var(--c-ink); }
+
+/* ── Motion technique 4 of 4: "Odometer". A masked vertical column of
+      numerals that slides when the widget's step changes, so the oversized
+      step number reads as a mechanical counter rather than a text swap. */
+.hcx-odo { display: block; overflow: hidden; height: var(--odo-h, 1em); }
+.hcx-odo__reel {
+  display: block;
+  transition: transform 520ms var(--ease-out-quart);
+  will-change: transform;
+}
+.hcx-odo__cell { display: block; height: var(--odo-h, 1em); line-height: var(--odo-h, 1em); }
+
+/* Slim, restrained scroller for the one horizontally scrollable strip. */
+.hcx-scroller { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+.hcx-scroller::-webkit-scrollbar { display: none; }
+
+.skip-link {
+  background: var(--c-ink);
+  color: var(--c-white);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+}
+
+/* ── Reduced-motion fallbacks for the four techniques above ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hcx-line__in { clip-path: none !important; transition: none !important; }
+  .hcx-rule__line { transform: scaleX(1) !important; }
+  .hcx-rule__cap { transform: scale(1) !important; }
+  .hcx-odo__reel { transition: none !important; }
+  .btn::before { transition: none !important; }
+}

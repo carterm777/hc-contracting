@@ -1,0 +1,192 @@
+/* ── HC Contracting — design tokens ───────────────────────────────────────────
+   The brief fixes five colours and two typefaces. Everything below is either
+   one of those five, a tint/shade of one of those five, or a ratio decision.
+   No component stylesheet may declare a raw colour, a px font size or a raw
+   space value — it references these names or it does not ship.
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Brand, fixed by the brief ───────────────────────────────────────── */
+  --brand-primary:   #156EA1;
+  --brand-secondary: #60BBEF;
+  --brand-accent:    #3B93C0;
+  --brand-dark:      #000000;
+  --brand-light:     #FFFFFF;
+
+  /* ── Blues: the fixed three plus two shades of the primary ───────────── */
+  --c-blue:        var(--brand-primary);
+  --c-blue-mid:    var(--brand-accent);
+  --c-blue-bright: var(--brand-secondary);
+  --c-blue-deep:   #0F5479;   /* shade of --brand-primary — deep bands   */
+  --c-blue-abyss:  #082F45;   /* deepest shade — hairlines on blue       */
+  --c-blue-wash:   #E6F1F9;   /* 8% primary over white — tint surfaces   */
+  --c-blue-veil:   #F2F8FC;   /* 4% primary over white                   */
+
+  /* ── Neutrals: black → white ramp, faintly blue-tinted so the greys sit
+        inside the brand rather than beside it ───────────────────────────── */
+  --c-ink:        var(--brand-dark);
+  --c-ink-raised: #0B0E10;
+  --c-ink-panel:  #14191D;
+  --c-ink-line:   #232B31;
+  --c-graphite:   #3B454B;
+  --c-slate:      #5C686F;
+  --c-mute:       #87929A;
+  --c-hairline:   #D3DBE1;
+  --c-hairline-2: #E6EBEF;
+  --c-mist:       #EDF1F5;
+  --c-paper:      #F6F8FA;
+  --c-white:      var(--brand-light);
+
+  /* ── Platform marks. Used only inside the Google Reviews block, where the
+        whole job of the section is to be recognisably Google. ───────────── */
+  --g-blue:   #4285F4;
+  --g-red:    #EA4335;
+  --g-yellow: #FBBC05;
+  --g-green:  #34A853;
+  --c-star:   #FBBC04;
+
+  /* ── Semantic ────────────────────────────────────────────────────────── */
+  --fg:          var(--c-ink);
+  --fg-2:        var(--c-graphite);
+  --fg-3:        var(--c-slate);
+  --fg-on-dark:  var(--c-white);
+  --fg-on-dark-2:#A9B4BB;
+  --fg-on-blue:  var(--c-white);
+  --fg-on-blue-2:#C9E4F5;
+  --bg:          var(--c-white);
+  --focus-ring:  var(--c-ink);
+  --c-error:     #B3261E;
+
+  /* ── Type roles ──────────────────────────────────────────────────────── */
+  --ff-display: 'Six Caps', 'Oswald', 'Arial Narrow', 'Haettenschweiler', sans-serif-condensed, sans-serif;
+  --ff-body:    'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* ── Display ramp (Six Caps). It only works enormous, so the steps are
+        far apart and the smallest one is still large. ────────────────────── */
+  --fs-d0:  clamp(3.25rem, 7.7vw, 7.1rem);   /* hero H1                    */
+  --fs-d1:  clamp(2.5rem, 5.4vw, 5rem);      /* section H2                 */
+  --fs-d2:  clamp(2rem, 3.6vw, 3.25rem);     /* pull quote, aggregate      */
+  --fs-d3:  clamp(1.6rem, 2.4vw, 2.15rem);   /* card display               */
+  --fs-d4:  clamp(1.35rem, 1.8vw, 1.6rem);   /* wordmark, small display    */
+  --fs-num: clamp(3.5rem, 6.6vw, 6.5rem);    /* oversized numerals         */
+  --fs-ghost: clamp(7rem, 22vw, 20rem);      /* typographic background     */
+  --fs-step: clamp(2.5rem, 3.9vw, 3.6rem);   /* widget step numeral        */
+
+  /* ── Body ramp (Source Sans Pro) ─────────────────────────────────────── */
+  --fs-3xs: 0.6875rem;
+  --fs-2xs: 0.75rem;
+  --fs-xs:  0.8125rem;
+  --fs-sm:  0.875rem;
+  --fs-md:  0.9375rem;
+  --fs-base:1rem;
+  --fs-lg:  1.0625rem;
+  --fs-xl:  clamp(1.0625rem, 0.98vw, 1.1875rem);
+  --fs-2xl: clamp(1.1875rem, 1.35vw, 1.375rem);
+
+  /* ── Tracking. Six Caps is set wide per the brief; the body face is not. */
+  --tr-display:      0.02em;
+  --tr-display-wide: 0.055em;
+  --tr-eyebrow:      0.26em;
+  --tr-label:        0.14em;
+  --tr-caps:         0.08em;
+  --tr-body:         0;
+
+  /* ── Leading ─────────────────────────────────────────────────────────── */
+  --lh-display:  1.06;   /* on the inner line span; stacks close with --line-gap */
+  --lh-tight:    1.18;
+  --lh-snug:     1.42;
+  --lh-body:     1.62;
+  --lh-loose:    1.72;
+  --line-gap:    -0.22em;
+  --line-gap-sm: -0.16em;
+
+  /* ── Weights ─────────────────────────────────────────────────────────── */
+  --fw-reg:  400;
+  --fw-semi: 600;
+  --fw-bold: 700;
+
+  /* ── Space scale ─────────────────────────────────────────────────────── */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-5:  1.25rem;
+  --s-6:  1.5rem;
+  --s-7:  2rem;
+  --s-8:  2.5rem;
+  --s-9:  3rem;
+  --s-10: 4rem;
+  --s-11: 5rem;
+  --s-12: 6.5rem;
+  --s-13: 8rem;
+
+  /* ── Section rhythm — consumed by base.css, never re-declared elsewhere  */
+  --section-y:   clamp(3.5rem, 5.8vw, 6.25rem);
+  --gutter:      clamp(1.125rem, 3vw, 2.5rem);
+  --shell:       1240px;
+  --shell-wide:  1440px;
+  --shell-narrow: 780px;
+  --header-h:    108px;
+  --hdr-contact-h: 40px;
+  --hdr-bar-h:     68px;
+  --hdr-rail-h:    34px;
+
+  /* ── Radii. Bold-geometric: square by default, never a soft card. ────── */
+  --r-0:    0px;
+  --r-1:    2px;
+  --r-2:    4px;
+  --r-pill: 999px;
+
+  /* ── Rules ───────────────────────────────────────────────────────────── */
+  --rule-1: 1px;
+  --rule-2: 2px;
+  --rule-3: 3px;
+  --rule-5: 5px;
+  --rule-8: 8px;
+
+  /* ── Elevation ───────────────────────────────────────────────────────── */
+  --e-0: none;
+  --e-1: 0 1px 2px rgb(0 0 0 / 0.05), 0 2px 10px rgb(0 0 0 / 0.05);
+  --e-2: 0 2px 6px rgb(0 0 0 / 0.07), 0 14px 32px rgb(0 0 0 / 0.09);
+  --e-3: 0 6px 14px rgb(0 0 0 / 0.10), 0 34px 70px rgb(0 0 0 / 0.18);
+  --e-blue: 0 10px 24px rgb(8 47 69 / 0.20), 0 36px 70px rgb(8 47 69 / 0.30);
+  --e-inset-top: inset 0 1px 0 rgb(255 255 255 / 0.14);
+
+  /* ── Icon sizing ─────────────────────────────────────────────────────── */
+  --icon:    22px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 28px;
+  --icon-xl: 34px;
+  --icon-stroke: 1.6;
+
+  /* ── Duration ────────────────────────────────────────────────────────── */
+  --d-fast:   170ms;
+  --d-mid:    280ms;
+  --d-slow:   620ms;
+  --d-clip:   860ms;
+  --d-settle: 900ms;
+
+  /* ── Motion temperament: HC is unhurried and square. Shorter rise, longer
+        dwell than the kit default. ──────────────────────────────────────── */
+  --reveal-rise:     20px;
+  --reveal-dur:      700ms;
+  --reveal-dur-slow: 900ms;
+  --hover-dur:       260ms;
+
+  /* ── Layered z-order ─────────────────────────────────────────────────── */
+  --z-bed:    0;
+  --z-mid:    1;
+  --z-top:    2;
+  --z-sticky: 40;
+  --z-header: 50;
+}
+
+@media (max-width: 899px) {
+  :root {
+    --header-h: 88px;
+    --hdr-bar-h: 54px;
+    --fs-ghost: clamp(6rem, 34vw, 12rem);
+  }
+}
+

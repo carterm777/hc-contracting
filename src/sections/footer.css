@@ -1,0 +1,121 @@
+/* ── Footer ─────────────────────────────────────────────────────────────────
+   Layout: Mega Footer — four columns exactly as the brief specifies.
+   Visual: Bold Color-Block Footer, resolved to black rather than blue. Blue
+   already carries the trust band, the widget and the final CTA; ending on the
+   palette's other absolute would repeat that entry's own Avoid-when.
+   Animation: Link Column Staggered Fade-In left to right, one group per
+   column. Hover: Underline Sweep on every link.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.ftr {
+  background: var(--c-ink);
+  color: var(--fg-on-dark-2);
+  padding-block: clamp(3rem, 5vw, 4.5rem) var(--s-7);
+  border-block-start: var(--rule-5) solid var(--c-blue);
+}
+
+.ftr__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+}
+
+.ftr__brand { display: flex; align-items: baseline; gap: var(--s-3); margin-block-end: var(--s-4); }
+.ftr__brand-mark { font-size: calc(var(--fs-d2) * 1.05); color: var(--c-white); line-height: 0.8; }
+.ftr__brand-word {
+  font-family: var(--ff-body);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-blue-bright);
+}
+
+.ftr__mission {
+  max-width: 44ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--fg-on-dark-2);
+}
+
+.ftr__social { display: flex; gap: var(--s-2); margin-block-start: var(--s-5); }
+.ftr__social-link {
+  display: grid;
+  place-items: center;
+  width: var(--s-8);
+  height: var(--s-8);
+  border: var(--rule-1) solid var(--c-ink-line);
+  color: var(--fg-on-dark-2);
+  transition: background-color var(--d-fast) linear, color var(--d-fast) linear,
+              border-color var(--d-fast) linear, transform var(--d-fast) var(--ease-out-cubic);
+}
+.ftr__social-link:hover, .ftr__social-link:focus-visible {
+  background: var(--c-blue-bright);
+  border-color: var(--c-blue-bright);
+  color: var(--c-ink);
+  transform: translateY(-3px);
+}
+.ftr__social-link .lucide { width: var(--icon-md); height: var(--icon-md); }
+.ftr__social-note {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-3xs);
+  letter-spacing: 0.03em;
+  color: var(--c-slate);
+}
+
+.ftr__h3 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-d3);
+  text-transform: uppercase;
+  letter-spacing: var(--tr-display-wide);
+  line-height: 1;
+  color: var(--c-white);
+  padding-block-end: var(--s-3);
+  margin-block-end: var(--s-4);
+  border-block-end: var(--rule-2) solid var(--c-blue);
+}
+
+.ftr__list { display: grid; gap: var(--s-2); }
+.ftr__link { font-size: var(--fs-sm); color: var(--fg-on-dark-2); }
+.ftr__link:hover, .ftr__link:focus-visible { color: var(--c-white); }
+
+.ftr__legal {
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--c-slate);
+  margin-block-end: var(--s-4);
+}
+.ftr__contact { display: grid; gap: var(--s-3); }
+.ftr__contact li { display: flex; align-items: flex-start; gap: var(--s-3); font-size: var(--fs-sm); }
+.ftr__contact .lucide { flex: none; width: var(--icon-sm); height: var(--icon-sm); color: var(--c-blue-mid); margin-block-start: 0.2em; }
+
+.ftr__base {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-block-start: clamp(2.5rem, 4vw, 3.5rem);
+  padding-block-start: var(--s-5);
+  border-block-start: var(--rule-1) solid var(--c-ink-line);
+}
+.ftr__copy, .ftr__note {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.02em;
+  color: var(--c-slate);
+}
+
+@media (max-width: 999px) {
+  .ftr__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ftr__col--brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 899px) {
+  .ftr { padding-block-end: calc(var(--s-13) + var(--s-2)); }
+}
+
+@media (max-width: 559px) {
+  .ftr__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-7); }
+}

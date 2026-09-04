@@ -1,0 +1,202 @@
+/* ── Service Area / Coverage ────────────────────────────────────────────────
+   Layout: Service Area List or Coverage Zone Grid — the ten named communities
+   as a real list beside a schematic.
+   Visual: Industrial Grid Coverage Map — a drafting-table plot with a fine
+   grid, range rings and square nodes. Square, not circular, because every
+   other mark on this page is square.
+   Animation: Depth Settle on the plot + Coverage Zone Highlight on Hover,
+   cross-linked in both directions between the list and the schematic.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.cov { background: var(--c-mist); }
+
+.cov__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: start;
+}
+
+.cov__title { font-size: var(--fs-d1); color: var(--c-ink); margin-block-end: var(--s-4); }
+.cov__body {
+  max-width: 52ch;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: var(--fg-2);
+  margin-block-end: var(--s-6);
+}
+
+/* ── Area list ──────────────────────────────────────────────────────────── */
+.cov__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--s-6);
+  border-block-start: var(--rule-2) solid var(--c-ink);
+}
+.cov__list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-block: var(--s-3);
+  border-block-end: var(--rule-1) solid var(--c-hairline);
+  transition: padding-inline-start var(--d-fast) var(--ease-out-quart),
+              background-color var(--d-fast) linear;
+  cursor: default;
+}
+.cov__list-item[data-active='true'] { padding-inline-start: var(--s-3); background: var(--c-white); }
+.cov__list-dot {
+  flex: none;
+  width: var(--s-2);
+  height: var(--s-2);
+  background: var(--c-blue-mid);
+  transition: background-color var(--d-fast) linear, transform var(--d-fast) var(--ease-out-quart);
+}
+.cov__list-item[data-active='true'] .cov__list-dot { background: var(--c-blue); transform: scale(1.5); }
+.cov__list-item[data-hub='true'] .cov__list-dot { background: var(--c-ink); }
+.cov__list-name {
+  flex: 1 1 auto;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semi);
+  color: var(--c-ink);
+}
+.cov__list-tag {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--c-white);
+  background: var(--c-ink);
+  padding: var(--s-1) var(--s-2);
+}
+
+/* ── CTA strip ──────────────────────────────────────────────────────────── */
+.cov__cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-3) var(--s-4);
+  margin-block-start: var(--s-7);
+  padding: var(--s-5);
+  background: var(--c-white);
+  border-inline-start: var(--rule-5) solid var(--c-blue-bright);
+}
+.cov__cta-icon { color: var(--c-blue); line-height: 0; }
+.cov__cta-icon .lucide { width: var(--icon-lg); height: var(--icon-lg); }
+.cov__cta-copy { font-size: var(--fs-md); line-height: var(--lh-snug); color: var(--fg-2); }
+.cov__cta-btn { grid-column: 1 / -1; }
+.cov__cta-btn .lucide { width: var(--icon-sm); height: var(--icon-sm); }
+
+/* ── Schematic ──────────────────────────────────────────────────────────── */
+.cov__map-frame {
+  position: relative;
+  background: var(--c-white);
+  border: var(--rule-1) solid var(--c-hairline);
+  box-shadow: var(--e-1);
+  padding: var(--s-4);
+}
+.cov__map-label,
+.cov__map-foot {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--c-mute);
+}
+.cov__map-label { margin-block-end: var(--s-3); color: var(--c-blue); }
+.cov__map-foot { margin-block-start: var(--s-3); }
+
+.cov__plot {
+  position: relative;
+  aspect-ratio: 1 / 0.88;
+  background: var(--c-blue-veil);
+  padding: 0;
+}
+.cov__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cov__grid-line { stroke: var(--c-hairline); stroke-width: 0.3; }
+.cov__axis { stroke: var(--c-hairline); stroke-width: 0.45; stroke-dasharray: 2 1.4; }
+.cov__ring { fill: none; stroke: var(--c-blue-mid); stroke-width: 0.42; stroke-dasharray: 1.6 1.6; opacity: 0.7; }
+/* Sequential Line Draw: each spoke draws from the hub outward once the plot
+   settles in, then holds. pathLength normalises every run to 100 units so the
+   stroke maths is independent of the schematic's aspect ratio. */
+.cov__spoke {
+  stroke: var(--c-blue-mid);
+  stroke-width: 0.45;
+  opacity: 0.5;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-width 200ms var(--ease-out-quart),
+              opacity 200ms linear,
+              stroke-dashoffset 700ms var(--ease-out-quart) var(--reveal-delay);
+}
+.cov__map[data-in='true'] .cov__spoke { stroke-dashoffset: 0; }
+.cov__spoke[data-active='true'] { stroke: var(--c-blue); stroke-width: 0.9; opacity: 1; }
+
+.cov__node {
+  position: absolute;
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-1);
+  cursor: default;
+}
+.cov__node-mark {
+  width: var(--s-2);
+  height: var(--s-2);
+  background: var(--c-blue-mid);
+  outline: var(--rule-2) solid var(--c-blue-veil);
+  transform: scale(0);
+  transition: background-color 200ms linear,
+              transform 360ms var(--ease-out-quart) var(--reveal-delay);
+}
+.cov__map[data-in='true'] .cov__node-mark { transform: scale(1); }
+.cov__node-name {
+  opacity: 0;
+  transition: opacity 420ms linear var(--reveal-delay),
+              color 200ms linear, background-color 200ms linear;
+}
+.cov__map[data-in='true'] .cov__node-name { opacity: 1; }
+.cov__node[data-hub='true'] .cov__node-mark {
+  width: var(--s-4);
+  height: var(--s-4);
+  background: var(--c-ink);
+}
+.cov__map[data-in='true'] .cov__node[data-active='true'] .cov__node-mark { background: var(--c-blue); transform: scale(1.35); }
+.cov__node-name {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--c-slate);
+  background: var(--c-blue-veil);
+  padding: var(--s-1);
+}
+.cov__node[data-hub='true'] .cov__node-name {
+  font-family: var(--ff-display);
+  font-size: var(--fs-d4);
+  letter-spacing: var(--tr-display-wide);
+  color: var(--c-ink);
+  padding-inline: var(--s-2);
+}
+.cov__node[data-active='true'] .cov__node-name { color: var(--c-white); background: var(--c-blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cov__spoke { stroke-dashoffset: 0 !important; }
+  .cov__node-mark { transform: scale(1) !important; }
+  .cov__node-name { opacity: 1 !important; }
+}
+
+@media (max-width: 999px) {
+  .cov__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .cov__map { max-width: 34rem; }
+}
+
+@media (max-width: 599px) {
+  .cov__list { grid-template-columns: minmax(0, 1fr); }
+  .cov__node-name { letter-spacing: 0.02em; padding: 0; }
+  .cov__cta { grid-template-columns: minmax(0, 1fr); }
+  .cov__cta-icon { display: none; }
+  .cov__cta-btn { justify-content: center; }
+}

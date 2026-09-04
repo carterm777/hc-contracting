@@ -1,0 +1,140 @@
+/* ── Our Story ──────────────────────────────────────────────────────────────
+   Layout: Values-Led Story Block — the narrative resolves into the three
+   principles the copy itself names ("name the problem straight, fix it
+   properly, and skip the runaround").
+   Visual: Bold Pull-Quote Colour Block + Image with Color-Block Corner Accent
+   (deliberate use two of two of the assigned image technique).
+   Animation: Staggered Rise per paragraph, Pull-Quote Fade and Scale-In as its
+   own beat, and the media column pinned while the story scrolls past it.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.sty { background: var(--c-white); }
+
+.sty__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4.5vw, 5rem);
+  align-items: start;
+}
+
+/* ── Media ──────────────────────────────────────────────────────────────── */
+.sty__media { position: sticky; top: calc(var(--header-h) + var(--s-6)); }
+.sty__figure { position: relative; }
+.sty__img {
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+}
+.sty__corner {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: clamp(3rem, 5.5vw, 5rem);
+  height: clamp(3rem, 5.5vw, 5rem);
+  background: var(--c-blue-bright);
+  z-index: var(--z-mid);
+}
+.sty__plate {
+  position: absolute;
+  inset-block-end: calc(-1 * var(--s-5));
+  inset-inline-end: calc(-1 * var(--s-3));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--s-1);
+  padding: var(--s-3) var(--s-5) var(--s-4);
+  background: var(--c-ink);
+  color: var(--c-white);
+  box-shadow: var(--e-2);
+}
+.sty__plate-n { font-size: var(--fs-d2); line-height: 0.82; color: var(--c-blue-bright); }
+.sty__plate-label {
+  font-size: var(--fs-3xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--fg-on-dark-2);
+}
+
+/* ── Copy ───────────────────────────────────────────────────────────────── */
+.sty__title { font-size: var(--fs-d1); color: var(--c-ink); margin-block-end: var(--s-5); }
+.sty__p {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  color: var(--fg-2);
+  max-width: 60ch;
+}
+.sty__p + .sty__p { margin-block-start: var(--s-5); }
+
+.sty__quote-wrap { margin-block: var(--s-7); }
+.sty__quote {
+  position: relative;
+  padding: var(--s-7) var(--s-7) var(--s-6);
+  background: var(--c-blue);
+  color: var(--fg-on-blue);
+  box-shadow: var(--e-blue);
+}
+.sty__quote::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: var(--rule-8);
+  background: var(--c-blue-bright);
+}
+.sty__quote-text {
+  font-size: var(--fs-d1);
+  line-height: var(--lh-display);
+  color: var(--c-white);
+}
+.sty__quote-text span { display: block; }
+.sty__quote-text span + span { margin-block-start: var(--line-gap); }
+.sty__quote-cite {
+  display: block;
+  margin-block-start: var(--s-4);
+  padding-block-start: var(--s-3);
+  border-block-start: var(--rule-1) solid rgb(255 255 255 / 0.28);
+  font-style: normal;
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--fg-on-blue-2);
+}
+
+/* ── Values row ─────────────────────────────────────────────────────────── */
+.sty__values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-5);
+  margin-block-start: var(--s-8);
+  padding-block-start: var(--s-6);
+  border-block-start: var(--rule-2) solid var(--c-ink);
+}
+.sty__value-rule {
+  display: block;
+  width: var(--s-6);
+  height: var(--rule-3);
+  background: var(--c-blue);
+  margin-block-end: var(--s-3);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 520ms var(--ease-out-quart) 200ms;
+}
+.sty__value[data-in='true'] .sty__value-rule { transform: scaleX(1); }
+.sty__value-title { font-size: var(--fs-d3); color: var(--c-ink); margin-block-end: var(--s-2); }
+.sty__value-copy { font-size: var(--fs-sm); line-height: var(--lh-snug); color: var(--fg-3); }
+
+@media (max-width: 999px) {
+  .sty__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-9); }
+  .sty__media { position: static; max-width: 30rem; }
+
+}
+
+@media (max-width: 719px) {
+  .sty__values { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .sty__quote { padding: var(--s-6) var(--s-5) var(--s-5); }
+  .sty__plate { inset-inline-end: 0; inset-block-end: 0; position: relative; align-items: flex-start; }
+}
